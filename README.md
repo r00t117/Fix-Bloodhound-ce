@@ -1,5 +1,9 @@
 # Fix-Bloodhound-ce
 
-BloodHound CE can fail to reset the admin password after reinstalling, even if you uninstall it through the CLI. The issue is caused by leftover Docker volumes, networks, and local config files that are not removed, which keeps old data alive and breaks the login process.
+I originally thought BloodHound CE was failing to reset the admin password after reinstalling, but the issue ended up being browser-related. Firefox was holding onto old cached data, which caused the login and password-reset process to break. Using another browser (or clearing the Firefox cache) immediately fixed it.
 
-This script performs a full cleanup of all BloodHound containers, volumes, networks, and local config directories so the next bloodhound-cli install starts completely fresh.
+Since I spent time troubleshooting before realizing this, I created a script that fully removes all BloodHound CE containers, volumes, networks, and local config files. It isn’t required for the browser issue, but it’s useful if BloodHound ever gets stuck with leftover Docker data.
+
+Run it with:
+
+'sudo ./nuke-bloodhound.sh'
